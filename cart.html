@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Your Shopping Cart</h2>
+        <ul id="cart-items">
+            <li>No items in cart.</li>
+        </ul>
+        <button onclick="checkout()">Proceed to Checkout</button>
+    </div>
+    <script>
+        let cart = [];
+        function addToCart(item) {
+            cart.push(item);
+            updateCart();
+        }
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+        function updateCart() {
+            let cartList = document.getElementById("cart-items");
+            cartList.innerHTML = "";
+            if (cart.length === 0) {
+                cartList.innerHTML = "<li>No items in cart.</li>";
+            } else {
+                cart.forEach((item, index) => {
+                    cartList.innerHTML += `<li>\${item} <button onclick="removeFromCart(\${index})">Remove</button></li>`;
+                });
+            }
+        }
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+            } else {
+                alert("Proceeding to checkout...");
+                cart = [];
+                updateCart();
+            }
+        }
+    </script>
+</body>
+</html>
